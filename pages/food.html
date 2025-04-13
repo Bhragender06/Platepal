@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food - FoodDelivery</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="../photos/background1.png" alt="Logo">
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="categories.html">Categories</a>
+            <a href="mart.html">Mart</a>
+            <a href="handpicked.html">Handpicked</a>
+            <a href="food.html" class="active">Food</a>
+        </div>
+        <div class="nav-right">
+            <div class="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Select Location</span>
+            </div>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+            <div class="auth-buttons">
+                <button class="login-btn">Login</button>
+                <button class="signup-btn">Sign Up</button>
+            </div>
+        </div>
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Location Modal -->
+    <div id="locationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeLocationModal()">&times;</span>
+            <h2>Select Your Location</h2>
+            <div class="location-search">
+                <input type="text" id="locationSearch" placeholder="Search for your location">
+                <button onclick="searchLocation()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div id="map" style="height: 300px; width: 100%; margin: 20px 0;">
+                <!-- Fallback content when map fails to load -->
+                <div id="map-error" style="display: none; text-align: center; padding: 20px;">
+                    <i class="fas fa-map-marker-alt" style="font-size: 48px; color: #ff6b6b; margin-bottom: 15px;"></i>
+                    <h3>Oops! Map loading failed</h3>
+                    <p>Please enter your address manually or try again later.</p>
+                </div>
+            </div>
+            <button class="confirm-location-btn" onclick="confirmLocation()">
+                Confirm Location
+            </button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="search-bar">
+            <input type="text" placeholder="Search for food...">
+            <button><i class="fas fa-search"></i> Search</button>
+        </div>
+
+        <section class="food-filters">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Veg</button>
+            <button class="filter-btn">Non-Veg</button>
+            <button class="filter-btn">Healthy</button>
+            <button class="filter-btn">Fast Food</button>
+        </section>
+
+        <section class="food-categories">
+            <div class="food-category">
+                <img src="../photos/veg.jpg" alt="Vegetarian">
+                <h3>Vegetarian</h3>
+                <p>Fresh and healthy vegetarian options</p>
+            </div>
+            <div class="food-category">
+                <img src="../photos/non-veg.jpg" alt="Non-Vegetarian">
+                <h3>Non-Vegetarian</h3>
+                <p>Delicious meat and seafood dishes</p>
+            </div>
+            <div class="food-category">
+                <img src="../photos/healthy.jpg" alt="Healthy">
+                <h3>Healthy</h3>
+                <p>Nutritious and balanced meals</p>
+            </div>
+            <div class="food-category">
+                <img src="../photos/fast-food.jpg" alt="Fast Food">
+                <h3>Fast Food</h3>
+                <p>Quick and tasty treats</p>
+            </div>
+        </section>
+
+        <section class="food-items-grid">
+            <div class="food-item">
+                <div class="food-item-image">
+                    <img src="../photos/Butter Chicken.png" alt="Butter Chicken">
+                    <span class="food-type-badge badge-non-veg">Non-Veg</span>
+                </div>
+                <div class="food-item-content">
+                    <div class="food-item-header">
+                        <h3>Butter Chicken</h3>
+                        <span class="food-item-price">₹299</span>
+                    </div>
+                    <p class="food-item-description">Creamy, rich butter chicken with tender pieces of tandoori chicken</p>
+                    <div class="food-item-footer">
+                        <div class="food-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.8</span>
+                        </div>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="food-item">
+                <div class="food-item-image">
+                    <img src="../photos/Paneer Tikka.png" alt="Paneer Tikka">
+                    <span class="food-type-badge badge-veg">Veg</span>
+                </div>
+                <div class="food-item-content">
+                    <div class="food-item-header">
+                        <h3>Paneer Tikka</h3>
+                        <span class="food-item-price">₹249</span>
+                    </div>
+                    <p class="food-item-description">Grilled cottage cheese marinated in spicy tandoori masala</p>
+                    <div class="food-item-footer">
+                        <div class="food-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="food-item">
+                <div class="food-item-image">
+                    <img src="../photos/Greek Salad.jpg" alt="Greek Salad">
+                    <span class="food-type-badge badge-healthy">Healthy</span>
+                </div>
+                <div class="food-item-content">
+                    <div class="food-item-header">
+                        <h3>Greek Salad</h3>
+                        <span class="food-item-price">₹199</span>
+                    </div>
+                    <p class="food-item-description">Fresh Mediterranean salad with feta cheese and olives</p>
+                    <div class="food-item-footer">
+                        <div class="food-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.5</span>
+                        </div>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="food-item">
+                <div class="food-item-image">
+                    <img src="../photos/Burger Combo.png" alt="Burger Combo">
+                    <span class="food-type-badge badge-fast-food">Fast Food</span>
+                </div>
+                <div class="food-item-content">
+                    <div class="food-item-header">
+                        <h3>Burger Combo</h3>
+                        <span class="food-item-price">₹349</span>
+                    </div>
+                    <p class="food-item-description">Juicy burger with fries and a soft drink</p>
+                    <div class="food-item-footer">
+                        <div class="food-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.7</span>
+                        </div>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="recommended-section">
+            <div class="recommended-header">
+                <h2>Recommended for You</h2>
+            </div>
+            <div class="recommended-grid">
+                <div class="recommended-item">
+                    <div class="recommended-image">
+                        <img src="../photos/Special Thali.png" alt="Special Thali">
+                    </div>
+                    <div class="recommended-content">
+                        <h3 class="recommended-title">Special Thali</h3>
+                        <div class="recommended-price">₹399</div>
+                        <div class="button-container">
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="recommended-item">
+                    <div class="recommended-image">
+                        <img src="../photos/Pizza Special.png" alt="Pizza Special">
+                    </div>
+                    <div class="recommended-content">
+                        <h3 class="recommended-title">Pizza Special</h3>
+                        <div class="recommended-price">₹449</div>
+                        <div class="button-container">
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="../index.html">Home</a>
+                <a href="categories.html">Categories</a>
+                <a href="mart.html">Mart</a>
+                <a href="handpicked.html">Handpicked</a>
+                <a href="food.html">Food</a>
+            </div>
+            <div class="footer-section">
+                <h4>Customer Support</h4>
+                <a href="contact.html">Contact Us</a>
+                <a href="#">FAQs</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 FoodDelivery. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        let map;
+        let marker;
+        let autocomplete;
+        let selectedLocation = null;
+        let mapLoaded = false;
+
+        function handleMapError() {
+            const mapDiv = document.getElementById('map');
+            const errorDiv = document.getElementById('map-error');
+            if (errorDiv) {
+                errorDiv.style.display = 'block';
+            }
+            mapDiv.style.backgroundColor = '#f8f9fa';
+            console.error('Google Maps failed to load');
+        }
+
+        function initMap() {
+            try {
+                const defaultLocation = { lat: 40.7128, lng: -74.0060 };
+
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: defaultLocation,
+                    zoom: 13
+                });
+
+                marker = new google.maps.Marker({
+                    map: map,
+                    draggable: true,
+                    position: defaultLocation
+                });
+
+                autocomplete = new google.maps.places.Autocomplete(
+                    document.getElementById('locationSearch'),
+                    { types: ['geocode'] }
+                );
+
+                autocomplete.addListener('place_changed', () => {
+                    const place = autocomplete.getPlace();
+                    if (!place.geometry) {
+                        alert('Location not found. Please try a different search.');
+                        return;
+                    }
+
+                    map.setCenter(place.geometry.location);
+                    marker.setPosition(place.geometry.location);
+                    selectedLocation = place;
+                });
+
+                marker.addListener('dragend', () => {
+                    const position = marker.getPosition();
+                    reverseGeocode(position);
+                });
+
+                mapLoaded = true;
+            } catch (error) {
+                handleMapError();
+                console.error('Error initializing map:', error);
+            }
+        }
+
+        function searchLocation() {
+            if (!mapLoaded) {
+                alert('Map is not available. Please enter your address manually.');
+                return;
+            }
+
+            const input = document.getElementById('locationSearch').value;
+            if (!input) {
+                alert('Please enter a location to search');
+                return;
+            }
+
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ address: input }, (results, status) => {
+                if (status === 'OK') {
+                    const location = results[0].geometry.location;
+                    map.setCenter(location);
+                    marker.setPosition(location);
+                    selectedLocation = results[0];
+                } else {
+                    alert('Location not found. Please try a different search.');
+                }
+            });
+        }
+
+        function reverseGeocode(position) {
+            if (!mapLoaded) return;
+
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ location: position }, (results, status) => {
+                if (status === 'OK') {
+                    if (results[0]) {
+                        document.getElementById('locationSearch').value = results[0].formatted_address;
+                        selectedLocation = results[0];
+                    }
+                }
+            });
+        }
+
+        function showLocationModal() {
+            document.getElementById('locationModal').classList.add('active');
+            if (!mapLoaded) {
+                handleMapError();
+            }
+        }
+
+        function closeLocationModal() {
+            document.getElementById('locationModal').classList.remove('active');
+        }
+
+        function confirmLocation() {
+            const locationInput = document.getElementById('locationSearch').value;
+            if (!locationInput) {
+                alert('Please enter or select a location');
+                return;
+            }
+
+            const locationSpan = document.querySelector('.location span');
+            locationSpan.textContent = selectedLocation ? 
+                selectedLocation.formatted_address.split(',')[0] : locationInput;
+            closeLocationModal();
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('locationModal');
+            if (event.target === modal) {
+                closeLocationModal();
+            }
+        }
+
+        // Handle Google Maps API loading error
+        window.gm_authFailure = function() {
+            handleMapError();
+        };
+
+        // Add click event to location button
+        document.querySelector('.location').addEventListener('click', showLocationModal);
+
+        // Add login button functionality
+        document.querySelector('.login-btn').addEventListener('click', () => {
+            window.location.href = '../index.html';
+        });
+
+        document.querySelector('.signup-btn').addEventListener('click', () => {
+            window.location.href = '../index.html';
+        });
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer onerror="handleMapError()"></script>
+</body>
+</html> 

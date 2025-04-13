@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - FoodDelivery</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">FoodDelivery</a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="categories.html">Categories</a>
+            <a href="mart.html">Mart</a>
+            <a href="handpicked.html">Handpicked</a>
+            <a href="food.html">Food</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-buttons">
+            <button id="locationBtn" onclick="showLocationModal()">
+                <span id="selectedLocation">Select Location</span>
+            </button>
+            <button id="cartBtn">
+                Cart (<span id="cartCount">0</span>)
+            </button>
+            <button id="loginBtn">Login</button>
+            <button id="signupBtn">Sign Up</button>
+            <button id="logoutBtn" style="display: none;">Logout</button>
+            <span id="userDisplay" style="display: none;"></span>
+        </div>
+    </nav>
+
+    <!-- Location Modal -->
+    <div id="locationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeLocationModal()">&times;</span>
+            <h2>Select Your Location</h2>
+            <div class="location-search">
+                <input type="text" id="locationSearch" placeholder="Search for your location">
+                <button onclick="searchLocation()">Search</button>
+            </div>
+            <div id="locationMap"></div>
+            <button onclick="confirmLocation()">Confirm Location</button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <input type="text" id="signupName" placeholder="Full Name" required>
+                <input type="email" id="signupEmail" placeholder="Email" required>
+                <input type="password" id="signupPassword" placeholder="Password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeCart()">&times;</span>
+            <h2>Your Cart</h2>
+            <div id="cartItems"></div>
+            <div class="cart-total">
+                Total: <span id="cartTotal">₹0.00</span>
+            </div>
+            <button onclick="window.location.href='payment.html'" class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="payment-container">
+            <div class="payment-header">
+                <h1>Checkout</h1>
+                <p>Complete your order by providing delivery and payment details</p>
+            </div>
+
+            <div class="payment-content">
+                <!-- Order Summary Section -->
+                <div class="order-summary">
+                    <h2>Order Summary</h2>
+                    <div class="summary-items">
+                        <!-- Items will be dynamically added here -->
+                    </div>
+                    <div class="summary-totals">
+                        <div class="subtotal">
+                            <span>Subtotal</span>
+                            <span class="amount">₹0.00</span>
+                        </div>
+                        <div class="delivery-fee">
+                            <span>Delivery Fee</span>
+                            <span class="amount">₹40.00</span>
+                        </div>
+                        <div class="tax">
+                            <span>Tax (5%)</span>
+                            <span class="amount">₹0.00</span>
+                        </div>
+                        <div class="total">
+                            <span>Total</span>
+                            <span class="amount">₹0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Form Section -->
+                <div class="payment-form">
+                    <h2>Payment Details</h2>
+                    <form id="paymentForm">
+                        <div class="form-section">
+                            <h3>Delivery Address</h3>
+                            <div class="form-group">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" id="fullName" required placeholder="Enter your full name">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Street Address</label>
+                                <input type="text" id="address" required placeholder="Enter your street address">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" id="city" required placeholder="City">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pincode">PIN Code</label>
+                                    <input type="text" id="pincode" required placeholder="PIN Code">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" required placeholder="Enter your phone number">
+                            </div>              
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Payment Method</h3>
+                            <div class="payment-methods">
+                                <div class="payment-method">
+                                    <input type="radio" id="cod" name="paymentMethod" value="cod">
+                                    <label for="cod">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                        Cash on Delivery
+                                    </label>
+                                </div>
+                                <div class="payment-method">
+                                    <input type="radio" id="card" name="paymentMethod" value="card">
+                                    <label for="card">
+                                        <i class="fas fa-credit-card"></i>
+                                        Credit/Debit Card
+                                    </label>
+                                </div>
+                                <div class="payment-method">
+                                    <input type="radio" id="upi" name="paymentMethod" value="upi">
+                                    <label for="upi">
+                                        <i class="fas fa-mobile-alt"></i>
+                                        UPI Payment
+                                    </label>
+                                </div>
+                                <div class="payment-method">
+                                    <input type="radio" id="netbanking" name="paymentMethod" value="netbanking">
+                                    <label for="netbanking">
+                                        <i class="fas fa-university"></i>
+                                        Net Banking
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Card Payment Details (shown only when card is selected) -->
+                            <div id="cardDetails" class="payment-details">
+                                <div class="form-group card-number">
+                                    <label for="cardNumber">Card Number</label>
+                                    <div class="card-input">
+                                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+                                        <div class="card-icons">
+                                            <i class="fab fa-cc-visa"></i>
+                                            <i class="fab fa-cc-mastercard"></i>
+                                            <i class="fab fa-cc-amex"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="expiry">Expiry Date</label>
+                                        <input type="text" id="expiry" placeholder="MM/YY">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cvv">CVV</label>
+                                        <input type="password" id="cvv" placeholder="123">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- UPI Payment Details -->
+                            <div id="upiDetails" class="payment-details">
+                                <div class="form-group">
+                                    <label for="upiId">UPI ID</label>
+                                    <input type="text" id="upiId" placeholder="username@upi">
+                                </div>
+                            </div>
+
+                            <!-- Net Banking Details -->
+                            <div id="netBankingDetails" class="payment-details">
+                                <div class="form-group">
+                                    <label for="bank">Select Bank</label>
+                                    <select id="bank">
+                                        <option value="">Select your bank</option>
+                                        <option value="sbi">State Bank of India</option>
+                                        <option value="hdfc">HDFC Bank</option>
+                                        <option value="icici">ICICI Bank</option>
+                                        <option value="axis">Axis Bank</option>
+                                        <option value="kotak">Kotak Mahindra Bank</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="pay-now-btn">
+                            <i class="fas fa-lock"></i>
+                            Place Order
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="../index.html">Home</a>
+                <a href="categories.html">Categories</a>
+                <a href="mart.html">Mart</a>
+                <a href="handpicked.html">Handpicked</a>
+                <a href="food.html">Food</a>
+            </div>
+            <div class="footer-section">
+                <h4>Customer Support</h4>
+                <a href="contact.html">Contact Us</a>
+                <a href="#">FAQs</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 FoodDelivery. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer onerror="handleMapError()"></script>
+</body>
+</html> 

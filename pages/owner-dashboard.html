@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Dashboard - FoodDelivery</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="../photos/background1.png" alt="Logo">
+        </div>
+        <div class="nav-links">
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="menu-management.html">Menu</a>
+            <a href="orders.html">Orders</a>
+            <a href="analytics.html">Analytics</a>
+            <a href="settings.html">Settings</a>
+        </div>
+        <div class="nav-right">
+            <div class="owner-profile">
+                <img src="../photos/default-avatar.png" alt="Owner" class="avatar">
+                <span class="owner-name">Restaurant Owner</span>
+            </div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="dashboard-header">
+            <h1>Welcome Back, Restaurant Owner</h1>
+            <p>Here's your business overview</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Today's Orders</h3>
+                <p class="stat-number">25</p>
+                <p class="stat-change positive">+15% from yesterday</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-dollar-sign"></i>
+                <h3>Revenue</h3>
+                <p class="stat-number">$1,250</p>
+                <p class="stat-change positive">+8% from yesterday</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <h3>New Customers</h3>
+                <p class="stat-number">12</p>
+                <p class="stat-change positive">+20% from yesterday</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-star"></i>
+                <h3>Average Rating</h3>
+                <p class="stat-number">4.8</p>
+                <p class="stat-change neutral">Same as yesterday</p>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-card recent-orders">
+                <h2>Recent Orders</h2>
+                <div class="order-list">
+                    <div class="order-item">
+                        <div class="order-info">
+                            <h3>Order #12345</h3>
+                            <p>2x Margherita Pizza, 1x Coke</p>
+                            <span class="order-time">10 minutes ago</span>
+                        </div>
+                        <div class="order-status pending">Pending</div>
+                    </div>
+                    <div class="order-item">
+                        <div class="order-info">
+                            <h3>Order #12344</h3>
+                            <p>1x Chicken Burger, 1x Fries</p>
+                            <span class="order-time">25 minutes ago</span>
+                        </div>
+                        <div class="order-status completed">Completed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-card popular-items">
+                <h2>Popular Items</h2>
+                <div class="item-list">
+                    <div class="item">
+                        <img src="../photos/pizza.jpg" alt="Pizza">
+                        <div class="item-info">
+                            <h3>Margherita Pizza</h3>
+                            <p>Ordered 50 times today</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="../photos/burger.jpg" alt="Burger">
+                        <div class="item-info">
+                            <h3>Chicken Burger</h3>
+                            <p>Ordered 35 times today</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userEmail');
+            window.location.href = '../index.html';
+        }
+
+        // Check if user is logged in and is an owner
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const userRole = localStorage.getItem('userRole');
+            
+            if (!isLoggedIn || userRole !== 'owner') {
+                window.location.href = '../index.html';
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - FoodDelivery</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="../photos/background1.png" alt="Logo">
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="categories.html">Categories</a>
+            <a href="mart.html">Mart</a>
+            <a href="handpicked.html">Handpicked</a>
+            <a href="food.html">Food</a>
+            <a href="contact.html" class="active">Contact</a>
+        </div>
+        <div class="nav-right">
+            <div class="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Select Location</span>
+            </div>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+            <div class="auth-buttons">
+                <button class="login-btn">Login</button>
+                <button class="signup-btn">Sign Up</button>
+            </div>
+        </div>
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Location Modal -->
+    <div id="locationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeLocationModal()">&times;</span>
+            <h2>Select Your Location</h2>
+            <div class="location-search">
+                <input type="text" id="locationSearch" placeholder="Search for your location">
+                <button onclick="searchLocation()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div id="locationMap" style="height: 300px; width: 100%; margin: 20px 0;">
+                <!-- Fallback content when map fails to load -->
+                <div id="locationMap-error" style="display: none; text-align: center; padding: 20px;">
+                    <i class="fas fa-map-marker-alt" style="font-size: 48px; color: #ff6b6b; margin-bottom: 15px;"></i>
+                    <h3>Oops! Map loading failed</h3>
+                    <p>Please enter your address manually or try again later.</p>
+                </div>
+            </div>
+            <button class="confirm-location-btn" onclick="confirmLocation()">
+                Confirm Location
+            </button>
+        </div>
+    </div>
+
+    <div class="contact-container">
+        <div class="contact-header">
+            <h1>Contact Us</h1>
+            <p>Get in touch with us for any questions or support</p>
+        </div>
+
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h3>Phone</h3>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h3>Email</h3>
+                        <p>support@foodpal.com</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h3>Address</h3>
+                        <p>123 Food Street, Cuisine City, FC 12345</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h2>Send us a message</h2>
+                <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="map-container">
+            <h2>Our Location</h2>
+            <div id="map">
+                <!-- Fallback content when map fails to load -->
+                <div id="map-error" style="display: none; text-align: center; padding: 20px;">
+                    <i class="fas fa-map-marker-alt" style="font-size: 48px; color: #ff6b6b; margin-bottom: 15px;"></i>
+                    <h3>Oops! Map loading failed</h3>
+                    <p>You can still find us at: 123 Food Street, Cuisine City, FC 12345</p>
+                    <p>Or call us at: +1 (555) 123-4567</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="../index.html">Home</a>
+                <a href="categories.html">Categories</a>
+                <a href="mart.html">Mart</a>
+                <a href="handpicked.html">Handpicked</a>
+                <a href="food.html">Food</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="#">Help Center</a>
+                <a href="#">FAQs</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="footer-section">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 FoodPal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let map, locationMap;
+        let marker, locationMarker;
+        let autocomplete;
+        let selectedLocation = null;
+        let mapLoaded = false;
+        let locationMapLoaded = false;
+
+        function handleMapError() {
+            const mapDiv = document.getElementById('map');
+            const errorDiv = document.getElementById('map-error');
+            if (errorDiv) {
+                errorDiv.style.display = 'block';
+            }
+            mapDiv.style.backgroundColor = '#f8f9fa';
+            console.error('Google Maps failed to load');
+        }
+
+        function handleLocationMapError() {
+            const mapDiv = document.getElementById('locationMap');
+            const errorDiv = document.getElementById('locationMap-error');
+            if (errorDiv) {
+                errorDiv.style.display = 'block';
+            }
+            mapDiv.style.backgroundColor = '#f8f9fa';
+            console.error('Google Maps failed to load');
+        }
+
+        function initMap() {
+            try {
+                // Initialize the contact page map
+                const contactLocation = { lat: YOUR_LATITUDE, lng: YOUR_LONGITUDE };
+                map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 15,
+                    center: contactLocation
+                });
+                marker = new google.maps.Marker({
+                    position: contactLocation,
+                    map: map,
+                    title: 'FoodDelivery Location'
+                });
+                mapLoaded = true;
+
+                // Initialize the location selection map
+                const defaultLocation = { lat: 40.7128, lng: -74.0060 };
+                locationMap = new google.maps.Map(document.getElementById('locationMap'), {
+                    center: defaultLocation,
+                    zoom: 13
+                });
+
+                locationMarker = new google.maps.Marker({
+                    map: locationMap,
+                    draggable: true,
+                    position: defaultLocation
+                });
+
+                autocomplete = new google.maps.places.Autocomplete(
+                    document.getElementById('locationSearch'),
+                    { types: ['geocode'] }
+                );
+
+                autocomplete.addListener('place_changed', () => {
+                    const place = autocomplete.getPlace();
+                    if (!place.geometry) {
+                        alert('Location not found. Please try a different search.');
+                        return;
+                    }
+
+                    locationMap.setCenter(place.geometry.location);
+                    locationMarker.setPosition(place.geometry.location);
+                    selectedLocation = place;
+                });
+
+                locationMarker.addListener('dragend', () => {
+                    const position = locationMarker.getPosition();
+                    reverseGeocode(position);
+                });
+
+                locationMapLoaded = true;
+            } catch (error) {
+                handleMapError();
+                handleLocationMapError();
+                console.error('Error initializing maps:', error);
+            }
+        }
+
+        function searchLocation() {
+            if (!locationMapLoaded) {
+                alert('Map is not available. Please enter your address manually.');
+                return;
+            }
+
+            const input = document.getElementById('locationSearch').value;
+            if (!input) {
+                alert('Please enter a location to search');
+                return;
+            }
+
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ address: input }, (results, status) => {
+                if (status === 'OK') {
+                    const location = results[0].geometry.location;
+                    locationMap.setCenter(location);
+                    locationMarker.setPosition(location);
+                    selectedLocation = results[0];
+                } else {
+                    alert('Location not found. Please try a different search.');
+                }
+            });
+        }
+
+        function reverseGeocode(position) {
+            if (!locationMapLoaded) return;
+
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ location: position }, (results, status) => {
+                if (status === 'OK') {
+                    if (results[0]) {
+                        document.getElementById('locationSearch').value = results[0].formatted_address;
+                        selectedLocation = results[0];
+                    }
+                }
+            });
+        }
+
+        function showLocationModal() {
+            document.getElementById('locationModal').classList.add('active');
+            if (!locationMapLoaded) {
+                handleLocationMapError();
+            }
+        }
+
+        function closeLocationModal() {
+            document.getElementById('locationModal').classList.remove('active');
+        }
+
+        function confirmLocation() {
+            const locationInput = document.getElementById('locationSearch').value;
+            if (!locationInput) {
+                alert('Please enter or select a location');
+                return;
+            }
+
+            const locationSpan = document.querySelector('.location span');
+            locationSpan.textContent = selectedLocation ? 
+                selectedLocation.formatted_address.split(',')[0] : locationInput;
+            closeLocationModal();
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('locationModal');
+            if (event.target === modal) {
+                closeLocationModal();
+            }
+        }
+
+        // Handle Google Maps API loading error
+        window.gm_authFailure = function() {
+            handleMapError();
+            handleLocationMapError();
+        };
+
+        // Add click event to location button
+        document.querySelector('.location').addEventListener('click', showLocationModal);
+
+        // Add login button functionality
+        document.querySelector('.login-btn').addEventListener('click', () => {
+            window.location.href = '../index.html';
+        });
+
+        document.querySelector('.signup-btn').addEventListener('click', () => {
+            window.location.href = '../index.html';
+        });
+
+        // Handle contact form submission
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            console.log('Form submitted:', data);
+            alert('Thank you for your message! We will get back to you soon.');
+            event.target.reset();
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer onerror="handleMapError()"></script>
+</body>
+</html> 
