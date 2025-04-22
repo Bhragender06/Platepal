@@ -6,6 +6,112 @@
     <title>Mart - FoodDelivery</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Add chatbot CSS -->
+    <style>
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 9999;
+        }
+
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 90px;
+            left: 20px;
+            width: 350px;
+            height: 500px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 9999;
+        }
+
+        .chatbot-window.active {
+            display: flex !important;
+        }
+
+        .chatbot-header {
+            background-color: #ff4757;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .chatbot-input {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+        }
+
+        .chatbot-input input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            margin-right: 10px;
+        }
+
+        .chatbot-input button {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* Map container styles */
+        #map {
+            height: 300px;
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Ensure map controls don't overlap with chatbot */
+        .gm-style-cc {
+            z-index: 1 !important;
+        }
+        
+        .gm-style {
+            z-index: 1 !important;
+        }
+    </style>
+    <script>
+        console.log('Debug: HTML file loaded');
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('Debug: DOM Content Loaded');
+        });
+    </script>
 </head>
 <body>
     <nav class="navbar">
@@ -290,29 +396,50 @@
         let selectedLocation = null;
         let mapLoaded = false;
 
-        function handleMapError() {
-            const mapDiv = document.getElementById('map');
-            const errorDiv = document.getElementById('map-error');
-            if (errorDiv) {
-                errorDiv.style.display = 'block';
-            }
-            mapDiv.style.backgroundColor = '#f8f9fa';
-            console.error('Google Maps failed to load');
-        }
+        // Add debug logging for API loading
+        console.log('Debug: Starting Google Maps initialization');
 
         function initMap() {
+            console.log('Debug: initMap function called');
             try {
-                const defaultLocation = { lat: 40.7128, lng: -74.0060 };
+                // Try to get user's location first
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        function(position) {
+                            console.log('Debug: Got user location:', position.coords);
+                            setupMap({
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude
+                            });
+                        },
+                        function(error) {
+                            console.log('Debug: Geolocation error:', error);
+                            // Fall back to default location
+                            setupMap({ lat: 40.7128, lng: -74.0060 });
+                        }
+                    );
+                } else {
+                    console.log('Debug: Geolocation not supported');
+                    setupMap({ lat: 40.7128, lng: -74.0060 });
+                }
+            } catch (error) {
+                console.error('Debug: Error in initMap:', error);
+                handleMapError();
+            }
+        }
 
+        function setupMap(location) {
+            console.log('Debug: Setting up map with location:', location);
+            try {
                 map = new google.maps.Map(document.getElementById('map'), {
-                    center: defaultLocation,
+                    center: location,
                     zoom: 13
                 });
 
                 marker = new google.maps.Marker({
                     map: map,
                     draggable: true,
-                    position: defaultLocation
+                    position: location
                 });
 
                 autocomplete = new google.maps.places.Autocomplete(
@@ -323,10 +450,12 @@
                 autocomplete.addListener('place_changed', () => {
                     const place = autocomplete.getPlace();
                     if (!place.geometry) {
+                        console.log('Debug: Place not found');
                         alert('Location not found. Please try a different search.');
                         return;
                     }
 
+                    console.log('Debug: Place selected:', place);
                     map.setCenter(place.geometry.location);
                     marker.setPosition(place.geometry.location);
                     selectedLocation = place;
@@ -334,15 +463,48 @@
 
                 marker.addListener('dragend', () => {
                     const position = marker.getPosition();
+                    console.log('Debug: Marker dragged to:', position);
                     reverseGeocode(position);
                 });
 
                 mapLoaded = true;
+                console.log('Debug: Map setup completed successfully');
             } catch (error) {
+                console.error('Debug: Error in setupMap:', error);
                 handleMapError();
-                console.error('Error initializing map:', error);
             }
         }
+
+        function handleMapError() {
+            console.error('Debug: Google Maps failed to load');
+            const mapDiv = document.getElementById('map');
+            const errorDiv = document.getElementById('map-error');
+            if (errorDiv) {
+                errorDiv.style.display = 'block';
+            }
+            mapDiv.style.backgroundColor = '#f8f9fa';
+            
+            // Show error message to user
+            alert('Google Maps failed to load. Please check your internet connection and try again.');
+        }
+
+        // Add global error handler for Google Maps
+        window.gm_authFailure = function() {
+            console.error('Debug: Google Maps authentication failed');
+            handleMapError();
+            alert('Google Maps authentication failed. Please check your API key.');
+        };
+
+        // Test if Google Maps API is loaded
+        window.addEventListener('load', function() {
+            console.log('Debug: Window loaded, checking Google Maps API');
+            if (typeof google === 'undefined') {
+                console.error('Debug: Google Maps API not loaded');
+                handleMapError();
+            } else {
+                console.log('Debug: Google Maps API loaded successfully');
+            }
+        });
 
         function searchLocation() {
             if (!mapLoaded) {
@@ -414,14 +576,6 @@
                 closeLocationModal();
             }
         }
-
-        // Handle Google Maps API loading error
-        window.gm_authFailure = function() {
-            handleMapError();
-        };
-
-        // Add click event to location button
-        document.querySelector('.location').addEventListener('click', showLocationModal);
 
         // Initialize cart functionality
         document.addEventListener('DOMContentLoaded', function() {
@@ -532,6 +686,67 @@
             });
         });
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer onerror="handleMapError()"></script>
+    <!-- Add your Google Maps API key below -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&callback=initMap" async defer></script>
+    <!-- Add Plotly -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Add chatbot HTML structure -->
+    <div class="chatbot-container">
+        <button class="chatbot-button" onclick="toggleChat()">
+            <i class="fas fa-robot"></i>
+        </button>
+        <div class="chatbot-window">
+            <div class="chatbot-header">
+                Restaurant Assistant
+                <button class="chatbot-close" onclick="toggleChat()">&times;</button>
+            </div>
+            <div class="chatbot-messages"></div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbot-input" placeholder="Type your message...">
+                <button id="chatbot-send" class="chatbot-send">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleChat() {
+            console.log('Debug: Toggle chat clicked');
+            const chatWindow = document.querySelector('.chatbot-window');
+            chatWindow.classList.toggle('active');
+            console.log('Debug: Chat window classes:', chatWindow.className);
+        }
+
+        // Initialize chatbot when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Debug: DOM Content Loaded - Initializing chatbot');
+            try {
+                window.chatbot = new RestaurantChatbot();
+                console.log('Debug: Chatbot initialized successfully');
+                
+                // Add event listener for Enter key in chat input
+                const chatInput = document.getElementById('chatbot-input');
+                if (chatInput) {
+                    chatInput.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter') {
+                            window.chatbot.handleUserInput();
+                        }
+                    });
+                }
+                
+                // Add event listener for send button
+                const sendButton = document.getElementById('chatbot-send');
+                if (sendButton) {
+                    sendButton.addEventListener('click', () => {
+                        window.chatbot.handleUserInput();
+                    });
+                }
+            } catch (error) {
+                console.error('Debug: Error initializing chatbot:', error);
+            }
+        });
+    </script>
+
+    <!-- Add chatbot scripts -->
+    <script src="../public/js/chatbot.js"></script>
 </body>
 </html> 

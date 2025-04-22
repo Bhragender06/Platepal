@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs - FoodPal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/photos/background1.png" alt="FoodPal Logo">
+        </div>
+        <div class="nav-links">
+            <a href="menu1.html">Menu</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-right">
+            <div class="location" onclick="showLocationModal()">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Deliver to: <span id="user-location">Select Location</span></span>
+            </div>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+            <div class="auth-buttons">
+                <button class="login-btn">Log In</button>
+                <button class="signup-btn">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="faq-container">
+        <section class="faq-header">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to common questions about our services</p>
+        </section>
+
+        <section class="faq-content">
+            <div class="faq-category">
+                <h2>Ordering</h2>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How do I place an order?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>To place an order, simply browse our menu, select your items, add them to cart, and proceed to checkout. You'll need to be logged in to complete your order.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What payment methods do you accept?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept credit/debit cards, digital wallets (Google Pay, Apple Pay), and cash on delivery in select areas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-category">
+                <h2>Delivery</h2>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How long does delivery take?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Delivery times typically range from 20-45 minutes depending on your location and order volume. You can track your order in real-time through our app.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What is the delivery radius?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We deliver within a 5-mile radius of our partner restaurants. Enter your location to see available restaurants in your area.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-category">
+                <h2>Account & Support</h2>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How do I create an account?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Click the "Sign Up" button, fill in your details, verify your email address, and you're ready to go!</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How can I contact customer support?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can reach our customer support team through our Help Center, email at support@foodpal.com, or call us at 1-800-FOODPAL.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="menu1.html">Menu</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="help-center.html">Help Center</a>
+                <a href="faqs.html">FAQs</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+            <div class="footer-section">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 FoodPal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Accordion functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                
+                // Toggle answer visibility
+                answer.style.maxHeight = answer.style.maxHeight ? null : answer.scrollHeight + "px";
+                
+                // Toggle icon rotation
+                icon.style.transform = icon.style.transform === 'rotate(180deg)' ? 'rotate(0deg)' : 'rotate(180deg)';
+                
+                // Toggle active class
+                question.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html> 

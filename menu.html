@@ -3,303 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodPal - Online Food Ordering</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Restaurant Menu</title>
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">
-            <img src="photos/background1.png" alt="FoodPal Logo">
-        </div>
-        <div class="nav-links">
-            <a href="menu.html" class="active">Menu</a>
-            <a href="about.html">About</a>
-            <a href="pages/contact.html">Contact</a>
-        </div>
-        <div class="nav-right">
-            <div class="location" onclick="showLocationModal()">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Deliver to: <span id="user-location">Select Location</span></span>
-            </div>
-            <div class="cart-icon">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count">0</span>
-            </div>
-            <div class="auth-buttons">
-                <button class="login-btn">Log In</button>
-                <button class="signup-btn">Sign Up</button>
-            </div>
-        </div>
-        <div class="hamburger">
-            <i class="fas fa-bars"></i>
+            <img src="../photos/background1.png" alt="Restaurant Logo">
         </div>
     </nav>
 
-    <!-- Location Modal -->
-    <div id="locationModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeLocationModal()">&times;</span>
-            <h2>Select Your Location</h2>
-            <div class="location-search">
-                <input type="text" id="locationSearch" placeholder="Search for your location">
-                <button onclick="searchLocation()">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-            <div id="map" style="height: 300px; width: 100%; margin: 20px 0;">
-                <!-- Fallback content when map fails to load -->
-                <div id="map-error" style="display: none; text-align: center; padding: 20px;">
-                    <i class="fas fa-map-marker-alt" style="font-size: 48px; color: #ff6b6b; margin-bottom: 15px;"></i>
-                    <h3>Oops! Map loading failed</h3>
-                    <p>Please enter your address manually or try again later.</p>
-                </div>
-            </div>
-            <button class="confirm-location-btn" onclick="confirmLocation()">
-                Confirm Location
-            </button>
+    <div class="menu-container">
+        <div class="menu-header">
+            <h1>Our Menu</h1>
+            <p>Discover our delicious offerings</p>
         </div>
-    </div>
 
-    <main class="main-content">
-        <section class="hero">
-            <div class="search-bar">
-                <input type="text" placeholder="Search for restaurants or dishes...">
-                <button><i class="fas fa-search"></i></button>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <img src="../photos/coffee-with-heart-removebg-preview.png" alt="Coffee with Heart">
+                <div class="menu-item-content">
+                    <h3>Special Coffee</h3>
+                    <p>Rich, aromatic coffee with a heart design</p>
+                    <p class="price">$4.99</p>
+                    <a href="#" class="order-btn">Order Now</a>
+                </div>
             </div>
-        </section>
 
-        <section class="categories">
-            <h2>Food Categories</h2>
-            <div class="category-grid">
-                <div class="category-card">
-                    <img src="photos/Pizza1.jpg" alt="Pizza">
-                    <h3>Pizza</h3>
-                </div>
-                <div class="category-card">
-                    <img src="photos/Burger1.png" alt="Burgers">
-                    <h3>Burgers</h3>
-                </div>
-                <div class="category-card">
-                    <img src="photos/Sushi.jpg" alt="Sushi">
-                    <h3>Sushi</h3>
-                </div>
-                <div class="category-card">
-                    <img src="photos/Pasta.jpg" alt="Pasta">
-                    <h3>Pasta</h3>
+            <div class="menu-item">
+                <img src="../photos/breakfast-with-coffee-fresh-croissants-removebg-preview.png" alt="Breakfast Set">
+                <div class="menu-item-content">
+                    <h3>Breakfast Combo</h3>
+                    <p>Coffee with fresh croissants</p>
+                    <p class="price">$8.99</p>
+                    <a href="#" class="order-btn">Order Now</a>
                 </div>
             </div>
-        </section>
 
-        <section class="restaurants">
-            <h2>Popular Restaurants</h2>
-            <div class="restaurant-grid">
-                <div class="restaurant-card">
-                    <img src="photos/Italian Bistro Restaurant Photo.jpg" alt="Restaurant 1">
-                    <div class="restaurant-info">
-                        <h3>Italian Bistro</h3>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <span>4.5</span>
-                        </div>
-                        <p>Italian • $$ • 20-30 min</p>
-                        <button class="view-menu-btn">View Menu</button>
-                    </div>
+            <div class="menu-item">
+                <img src="../photos/traditional-mexican-rice-served-with-green-peas-isolated-white-background-removebg-preview.png" alt="Mexican Rice">
+                <div class="menu-item-content">
+                    <h3>Mexican Rice</h3>
+                    <p>Traditional rice served with green peas</p>
+                    <p class="price">$12.99</p>
+                    <a href="#" class="order-btn">Order Now</a>
                 </div>
-                <!-- Add more restaurant cards -->
             </div>
-        </section>
 
-        <section class="cart-sidebar">
-            <div class="cart-header">
-                <h3>Your Cart</h3>
-                <button class="close-cart"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="cart-items">
-                <!-- Cart items will be added dynamically -->
-            </div>
-            <div class="cart-summary">
-                <div class="subtotal">
-                    <span>Subtotal:</span>
-                    <span class="subtotal-amount">$0.00</span>
-                </div>
-                <button class="checkout-btn">Proceed to Checkout</button>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <a href="menu.html">Menu</a>
-                <a href="about.html">About Us</a>
-                <a href="pages/contact.html">Contact</a>
-            </div>
-            <div class="footer-section">
-                <h4>Support</h4>
-                <a href="#">Help Center</a>
-                <a href="#">FAQs</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-            </div>
-            <div class="footer-section">
-                <h4>Connect With Us</h4>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+            <div class="menu-item">
+                <img src="../photos/Tasty_indian_masala_chai_with_spices_-6-removebg-preview.png" alt="Masala Chai">
+                <div class="menu-item-content">
+                    <h3>Masala Chai</h3>
+                    <p>Indian spiced tea with aromatic spices</p>
+                    <p class="price">$3.99</p>
+                    <a href="#" class="order-btn">Order Now</a>
                 </div>
             </div>
         </div>
-        <div class="copyright">
-            <p>&copy; 2024 FoodPal. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Google Maps JavaScript -->
-    <script>
-        let map;
-        let marker;
-        let autocomplete;
-        let selectedLocation = null;
-        let mapLoaded = false;
-
-        function handleMapError() {
-            const mapDiv = document.getElementById('map');
-            const errorDiv = document.getElementById('map-error');
-            if (errorDiv) {
-                errorDiv.style.display = 'block';
-            }
-            mapDiv.style.backgroundColor = '#f8f9fa';
-            console.error('Google Maps failed to load');
-        }
-
-        function initMap() {
-            try {
-                // Default location (you can set this to your restaurant's location)
-                const defaultLocation = { lat: 40.7128, lng: -74.0060 };
-
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: defaultLocation,
-                    zoom: 13
-                });
-
-                marker = new google.maps.Marker({
-                    map: map,
-                    draggable: true,
-                    position: defaultLocation
-                });
-
-                // Initialize the autocomplete
-                autocomplete = new google.maps.places.Autocomplete(
-                    document.getElementById('locationSearch'),
-                    { types: ['geocode'] }
-                );
-
-                // Add listener for place selection
-                autocomplete.addListener('place_changed', () => {
-                    const place = autocomplete.getPlace();
-                    if (!place.geometry) {
-                        alert('Location not found. Please try a different search.');
-                        return;
-                    }
-
-                    // Update map and marker
-                    map.setCenter(place.geometry.location);
-                    marker.setPosition(place.geometry.location);
-                    selectedLocation = place;
-                });
-
-                // Add listener for marker drag
-                marker.addListener('dragend', () => {
-                    const position = marker.getPosition();
-                    reverseGeocode(position);
-                });
-
-                mapLoaded = true;
-            } catch (error) {
-                handleMapError();
-                console.error('Error initializing map:', error);
-            }
-        }
-
-        function searchLocation() {
-            if (!mapLoaded) {
-                alert('Map is not available. Please enter your address manually.');
-                return;
-            }
-
-            const input = document.getElementById('locationSearch').value;
-            if (!input) {
-                alert('Please enter a location to search');
-                return;
-            }
-
-            const geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ address: input }, (results, status) => {
-                if (status === 'OK') {
-                    const location = results[0].geometry.location;
-                    map.setCenter(location);
-                    marker.setPosition(location);
-                    selectedLocation = results[0];
-                } else {
-                    alert('Location not found. Please try a different search.');
-                }
-            });
-        }
-
-        function reverseGeocode(position) {
-            if (!mapLoaded) return;
-
-            const geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ location: position }, (results, status) => {
-                if (status === 'OK') {
-                    if (results[0]) {
-                        document.getElementById('locationSearch').value = results[0].formatted_address;
-                        selectedLocation = results[0];
-                    }
-                }
-            });
-        }
-
-        function showLocationModal() {
-            document.getElementById('locationModal').classList.add('active');
-            if (!mapLoaded) {
-                handleMapError();
-            }
-        }
-
-        function closeLocationModal() {
-            document.getElementById('locationModal').classList.remove('active');
-        }
-
-        function confirmLocation() {
-            const locationInput = document.getElementById('locationSearch').value;
-            if (!locationInput) {
-                alert('Please enter or select a location');
-                return;
-            }
-
-            document.getElementById('user-location').textContent = 
-                selectedLocation ? selectedLocation.formatted_address.split(',')[0] : locationInput;
-            closeLocationModal();
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('locationModal');
-            if (event.target === modal) {
-                closeLocationModal();
-            }
-        }
-
-        // Handle Google Maps API loading error
-        window.gm_authFailure = function() {
-            handleMapError();
-        };
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer onerror="handleMapError()"></script>
+    </div>
 </body>
-</html>
- 
+</html> 

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - FoodPal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/photos/background1.png" alt="FoodPal Logo">
+        </div>
+        <div class="nav-links">
+            <a href="menu1.html">Menu</a>
+            <a href="about.html">About</a>
+            <a href="services.html" class="active">Services</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-right">
+            <div class="location" onclick="showLocationModal()">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Deliver to: <span id="user-location">Select Location</span></span>
+            </div>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+            <div class="auth-buttons">
+                <button class="login-btn">Log In</button>
+                <button class="signup-btn">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="services-container">
+        <section class="services-header">
+            <h1>Our Services</h1>
+            <p>Discover what we offer to make your dining experience exceptional</p>
+        </section>
+
+        <section class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-utensils"></i>
+                <h3>Food Delivery</h3>
+                <p>Quick and reliable delivery service right to your doorstep</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-clock"></i>
+                <h3>24/7 Service</h3>
+                <p>Available round the clock for your convenience</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-calendar-alt"></i>
+                <h3>Pre-ordering</h3>
+                <p>Plan ahead and schedule your meals in advance</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-users"></i>
+                <h3>Group Orders</h3>
+                <p>Easily coordinate large orders for groups and events</p>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <h2>Why Choose Us</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-shipping-fast"></i>
+                    <h3>Fast Delivery</h3>
+                    <p>Average delivery time under 30 minutes</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <h3>Best Prices</h3>
+                    <p>Competitive prices and regular discounts</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-star"></i>
+                    <h3>Quality Food</h3>
+                    <p>Partnered with top-rated restaurants</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="menu1.html">Menu</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="help-center.html">Help Center</a>
+                <a href="faqs.html">FAQs</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+            <div class="footer-section">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 FoodPal. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 

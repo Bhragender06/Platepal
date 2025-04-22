@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodPal - Online Food Ordering</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/photos/background1.png" alt="FoodPal Logo">
+        </div>
+        <div class="nav-links">
+            <a href="menu.html" class="active">Menu</a>
+            <a href="about.html">About</a>
+            <a href="/pages/contact.html">Contact</a>
+        </div>
+        <div class="nav-right">
+            <div class="location" onclick="showLocationModal()">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Deliver to: <span id="user-location">Select Location</span></span>
+            </div>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+            <div class="auth-buttons">
+                <button class="login-btn">Log In</button>
+                <button class="signup-btn">Sign Up</button>
+            </div>
+        </div>
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Location Modal -->
+    <div id="locationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeLocationModal()">&times;</span>
+            <h2>Select Your Location</h2>
+            <div class="location-search">
+                <input type="text" id="locationSearch" placeholder="Search for your location">
+                <button onclick="searchLocation()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div id="map" style="height: 300px; width: 100%; margin: 20px 0;">
+                <!-- Fallback content when map fails to load -->
+                <div id="map-error" style="display: none; text-align: center; padding: 20px;">
+                    <i class="fas fa-map-marker-alt" style="font-size: 48px; color: #ff6b6b; margin-bottom: 15px;"></i>
+                    <h3>Oops! Map loading failed</h3>
+                    <p>Please enter your address manually or try again later.</p>
+                </div>
+            </div>
+            <button class="confirm-location-btn" onclick="confirmLocation()">
+                Confirm Location
+            </button>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeCartModal()">&times;</span>
+            <h2>Your Cart</h2>
+            <div id="cartItems"></div>
+            <div class="cart-total">
+                <h3>Total: <span id="cartTotal">$0.00</span></h3>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeLoginModal()">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeSignupModal()">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signupForm" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <input type="text" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="signup-btn">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <main class="menu-container">
+        <section class="menu-header">
+            <h1>Our Menu</h1>
+            <p>Explore our delicious offerings curated just for you</p>
+        </section>
+
+        <section class="categories">
+            <h2 class="section-title">Food Categories</h2>
+            <div class="category-grid">
+                <div class="category-card">
+                    <img src="/photos/Pizza1.jpg" alt="Pizza">
+                    <h3>Pizza</h3>
+                </div>
+                <div class="category-card">
+                    <img src="/photos/Burger1.png" alt="Burgers">
+                    <h3>Burgers</h3>
+                </div>
+                <div class="category-card">
+                    <img src="/photos/Sushi.jpg" alt="Sushi">
+                    <h3>Sushi</h3>
+                </div>
+                <div class="category-card">
+                    <img src="/photos/Pasta.jpg" alt="Pasta">
+                    <h3>Pasta</h3>
+                </div>
+            </div>
+        </section>
+
+        <section class="restaurants">
+            <h2 class="section-title">Popular Restaurants</h2>
+            <div class="restaurant-grid">
+                <div class="restaurant-card">
+                    <div class="restaurant-image">
+                        <img src="/photos/Italian Bistro Restaurant Photo.jpg" alt="Italian Bistro">
+                    </div>
+                    <div class="restaurant-info">
+                        <h3>Italian Bistro</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.5</span>
+                        </div>
+                        <p>Italian • $$ • 20-30 min</p>
+                        <button class="view-menu-btn">View Menu</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="menu1.html">Menu</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="contact.html" class="active">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="help-center.html">Help Center</a>
+                <a href="faqs.html">FAQs</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+            <div class="footer-section">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 FoodPal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let map;
+        let marker;
+        let autocomplete;
+        let selectedLocation = null;
+        let mapLoaded = false;
+
+        function handleMapError() {
+            const mapDiv = document.getElementById('map');
+            const errorDiv = document.getElementById('map-error');
+            if (errorDiv) {
+                errorDiv.style.display = 'block';
+            }
+            mapDiv.style.backgroundColor = '#f8f9fa';
+            console.error('Google Maps failed to load');
+        }
+
+        function initMap() {
+            try {
+                // Default location (you can set this to your restaurant's location)
+                const defaultLocation = { lat: 40.7128, lng: -74.0060 };
+
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: defaultLocation,
+                    zoom: 13
+                });
+
+                marker = new google.maps.Marker({
+                    map: map,
+                    draggable: true,
+                    position: defaultLocation
+                });
+
+                // Initialize the autocomplete
+                autocomplete = new google.maps.places.Autocomplete(
+                    document.getElementById('locationSearch'),
+                    { types: ['geocode'] }
+                );
+
+                // Add listener for place selection
+                autocomplete.addListener('place_changed', () => {
+                    const place = autocomplete.getPlace();
+                    if (!place.geometry) {
+                        alert('Location not found. Please try a different search.');
+                        return;
+                    }
+
+                    // Update map and marker
+                    map.setCenter(place.geometry.location);
+                    marker.setPosition(place.geometry.location);
+                    selectedLocation = place;
+                });
+
+                // Add listener for marker drag
+                marker.addListener('dragend', () => {
+                    const position = marker.getPosition();
+                    reverseGeocode(position);
+                });
+
+                mapLoaded = true;
+            } catch (error) {
+                handleMapError();
+                console.error('Error initializing map:', error);
+            }
+        }
+
+        function searchLocation() {
+            if (!mapLoaded) {
+                alert('Map is not available. Please enter your address manually.');
+                return;
+            }
+
+            const input = document.getElementById('locationSearch').value;
+            if (!input) {
+                alert('Please enter a location to search');
+                return;
+            }
+
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ address: input }, (results, status) => {
+                if (status === 'OK') {
+                    const location = results[0].geometry.location;
+                    map.setCenter(location);
+                    marker.setPosition(location);
+                    selectedLocation = results[0];
+                } else {
+                    alert('Location not found. Please try a different search.');
+                }
+            });
+        }
+
+        function reverseGeocode(position) {
+            if (!mapLoaded) return;
+
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ location: position }, (results, status) => {
+                if (status === 'OK') {
+                    if (results[0]) {
+                        document.getElementById('locationSearch').value = results[0].formatted_address;
+                        selectedLocation = results[0];
+                    }
+                }
+            });
+        }
+
+        function showLocationModal() {
+            document.getElementById('locationModal').classList.add('active');
+            if (!mapLoaded) {
+                handleMapError();
+            }
+        }
+
+        function closeLocationModal() {
+            document.getElementById('locationModal').classList.remove('active');
+        }
+
+        function confirmLocation() {
+            const locationInput = document.getElementById('locationSearch').value;
+            if (!locationInput) {
+                alert('Please enter or select a location');
+                return;
+            }
+
+            document.getElementById('user-location').textContent = 
+                selectedLocation ? selectedLocation.formatted_address.split(',')[0] : locationInput;
+            closeLocationModal();
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('locationModal');
+            if (event.target === modal) {
+                closeLocationModal();
+            }
+        }
+
+        // Handle Google Maps API loading error
+        window.gm_authFailure = function() {
+            handleMapError();
+        };
+
+        // Cart functionality
+        let cart = [];
+        let cartTotal = 0;
+
+        function addToCart(item) {
+            cart.push(item);
+            updateCartCount();
+            updateCartTotal();
+        }
+
+        function updateCartCount() {
+            const cartCount = document.querySelector('.cart-count');
+            cartCount.textContent = cart.length;
+        }
+
+        function updateCartTotal() {
+            cartTotal = cart.reduce((total, item) => total + item.price, 0);
+            const cartTotalElement = document.getElementById('cartTotal');
+            if (cartTotalElement) {
+                cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
+            }
+        }
+
+        function showCartModal() {
+            const modal = document.getElementById('cartModal');
+            const cartItems = document.getElementById('cartItems');
+            cartItems.innerHTML = '';
+
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <h4>${item.name}</h4>
+                    <p>$${item.price.toFixed(2)}</p>
+                    <button onclick="removeFromCart(${item.id})">Remove</button>
+                `;
+                cartItems.appendChild(itemElement);
+            });
+
+            modal.classList.add('active');
+        }
+
+        function closeCartModal() {
+            document.getElementById('cartModal').classList.remove('active');
+        }
+
+        // Auth functionality
+        function showLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.remove('active');
+        }
+
+        function showSignupModal() {
+            document.getElementById('signupModal').classList.add('active');
+        }
+
+        function closeSignupModal() {
+            document.getElementById('signupModal').classList.remove('active');
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            // Add your login logic here
+            closeLoginModal();
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            // Add your signup logic here
+            closeSignupModal();
+        }
+
+        // Event Listeners
+        document.querySelector('.cart-icon').addEventListener('click', showCartModal);
+        document.querySelector('.login-btn').addEventListener('click', showLoginModal);
+        document.querySelector('.signup-btn').addEventListener('click', showSignupModal);
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let modal of modals) {
+                if (event.target === modal) {
+                    modal.classList.remove('active');
+                }
+            }
+        }
+
+        // Add to cart functionality for menu items
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const itemId = this.dataset.itemId;
+                const itemName = this.dataset.itemName;
+                const itemPrice = parseFloat(this.dataset.itemPrice);
+                
+                addToCart({
+                    id: itemId,
+                    name: itemName,
+                    price: itemPrice
+                });
+            });
+        });
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer onerror="handleMapError()"></script>
+</body>
+</html>
+ 

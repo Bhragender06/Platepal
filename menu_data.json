@@ -1,0 +1,224 @@
+{
+    "1": {
+        "name": "Pizza",
+        "price": "$12",
+        "calories": 266,
+        "protein": 11,
+        "carbs": 33,
+        "fat": 10,
+        "ingredients": [
+            "Flour",
+            "Tomato sauce",
+            "Cheese",
+            "Pepperoni",
+            "Olives"
+        ],
+        "preparation": "Baked at 450\u00b0F for 15-20 minutes",
+        "category": "Main Course"
+    },
+    "2": {
+        "name": "Burger",
+        "price": "$10",
+        "calories": 354,
+        "protein": 20,
+        "carbs": 29,
+        "fat": 17,
+        "ingredients": [
+            "Beef patty",
+            "Bun",
+            "Lettuce",
+            "Tomato",
+            "Onion",
+            "Pickles"
+        ],
+        "preparation": "Grilled for 5-7 minutes on each side",
+        "category": "Main Course"
+    },
+    "3": {
+        "name": "Salad",
+        "price": "$8",
+        "calories": 120,
+        "protein": 5,
+        "carbs": 15,
+        "fat": 6,
+        "ingredients": [
+            "Mixed greens",
+            "Cherry tomatoes",
+            "Cucumber",
+            "Red onion",
+            "Olive oil",
+            "Balsamic vinegar"
+        ],
+        "preparation": "Tossed with dressing and served fresh",
+        "category": "Appetizer"
+    },
+    "4": {
+        "name": "Pasta",
+        "price": "$15",
+        "calories": 371,
+        "protein": 14,
+        "carbs": 71,
+        "fat": 3,
+        "ingredients": [
+            "Spaghetti",
+            "Tomato sauce",
+            "Garlic",
+            "Basil",
+            "Parmesan cheese"
+        ],
+        "preparation": "Boiled for 10-12 minutes, tossed with sauce",
+        "category": "Main Course"
+    },
+    "5": {
+        "name": "Sandwich",
+        "price": "$9",
+        "calories": 250,
+        "protein": 12,
+        "carbs": 35,
+        "fat": 8,
+        "ingredients": [
+            "Bread",
+            "Turkey",
+            "Lettuce",
+            "Tomato",
+            "Mayonnaise"
+        ],
+        "preparation": "Assembled fresh and served with chips",
+        "category": "Main Course"
+    },
+    "6": {
+        "name": "Soup",
+        "price": "$7",
+        "calories": 150,
+        "protein": 6,
+        "carbs": 20,
+        "fat": 5,
+        "ingredients": [
+            "Vegetables",
+            "Broth",
+            "Herbs",
+            "Salt",
+            "Pepper"
+        ],
+        "preparation": "Simmered for 30 minutes until vegetables are tender",
+        "category": "Appetizer"
+    },
+    "7": {
+        "name": "Chicken Alfredo",
+        "price": "$18",
+        "calories": 430,
+        "protein": 28,
+        "carbs": 35,
+        "fat": 22,
+        "ingredients": [
+            "Fettuccine pasta",
+            "Chicken breast",
+            "Heavy cream",
+            "Parmesan cheese",
+            "Garlic",
+            "Butter",
+            "Parsley"
+        ],
+        "preparation": "Pasta boiled until al dente, chicken saut\u00e9ed and sliced, cream sauce prepared with garlic and parmesan, combined and garnished with parsley",
+        "category": "Main Course"
+    },
+    "8": {
+        "name": "Greek Salad",
+        "price": "$10",
+        "calories": 180,
+        "protein": 8,
+        "carbs": 12,
+        "fat": 14,
+        "ingredients": [
+            "Romaine lettuce",
+            "Cucumber",
+            "Tomatoes",
+            "Red onion",
+            "Kalamata olives",
+            "Feta cheese",
+            "Olive oil",
+            "Lemon juice",
+            "Oregano"
+        ],
+        "preparation": "Vegetables chopped and combined, topped with feta cheese, dressed with olive oil and lemon juice, sprinkled with oregano",
+        "category": "Appetizer"
+    },
+    "9": {
+        "name": "Chocolate Lava Cake",
+        "price": "$9",
+        "calories": 380,
+        "protein": 5,
+        "carbs": 45,
+        "fat": 20,
+        "ingredients": [
+            "Dark chocolate",
+            "Butter",
+            "Eggs",
+            "Sugar",
+            "Flour",
+            "Vanilla extract",
+            "Salt"
+        ],
+        "preparation": "Chocolate melted with butter, batter prepared and baked until edges are set but center remains soft and molten",
+        "category": "Dessert"
+    },
+    "10": {
+        "name": "Vegetable Stir Fry",
+        "price": "$14",
+        "calories": 250,
+        "protein": 10,
+        "carbs": 30,
+        "fat": 12,
+        "ingredients": [
+            "Broccoli",
+            "Bell peppers",
+            "Carrots",
+            "Snow peas",
+            "Tofu",
+            "Soy sauce",
+            "Ginger",
+            "Garlic",
+            "Sesame oil",
+            "Rice"
+        ],
+        "preparation": "Vegetables and tofu stir-fried with ginger and garlic, seasoned with soy sauce and sesame oil, served over steamed rice",
+        "category": "Main Course"
+    },
+    "11": {
+        "name": "Mango Smoothie",
+        "price": "$6",
+        "calories": 180,
+        "protein": 3,
+        "carbs": 40,
+        "fat": 2,
+        "ingredients": [
+            "Mango",
+            "Yogurt",
+            "Milk",
+            "Honey",
+            "Ice cubes"
+        ],
+        "preparation": "All ingredients blended until smooth and creamy, served chilled",
+        "category": "Beverage"
+    },
+    "12": {
+        "name": "Beef Tacos",
+        "price": "$12",
+        "calories": 320,
+        "protein": 18,
+        "carbs": 25,
+        "fat": 16,
+        "ingredients": [
+            "Corn tortillas",
+            "Ground beef",
+            "Lettuce",
+            "Tomatoes",
+            "Onions",
+            "Cheddar cheese",
+            "Sour cream",
+            "Taco seasoning"
+        ],
+        "preparation": "Beef cooked with taco seasoning, tortillas warmed, assembled with beef and fresh toppings",
+        "category": "Main Course"
+    }
+}

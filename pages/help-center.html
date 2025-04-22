@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center - FoodPal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/photos/background1.png" alt="FoodPal Logo">
+        </div>
+        <div class="nav-links">
+            <a href="menu1.html">Menu</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-right">
+            <div class="location" onclick="showLocationModal()">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Deliver to: <span id="user-location">Select Location</span></span>
+            </div>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+            <div class="auth-buttons">
+                <button class="login-btn">Log In</button>
+                <button class="signup-btn">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="help-container">
+        <section class="help-header">
+            <h1>Help Center</h1>
+            <p>How can we help you today?</p>
+            <div class="help-search">
+                <input type="text" placeholder="Search for help topics...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </section>
+
+        <section class="help-categories">
+            <div class="help-category">
+                <i class="fas fa-shopping-cart"></i>
+                <h2>Orders & Delivery</h2>
+                <ul>
+                    <li><a href="#">Track Your Order</a></li>
+                    <li><a href="#">Delivery Issues</a></li>
+                    <li><a href="#">Order Modifications</a></li>
+                    <li><a href="#">Cancellations & Refunds</a></li>
+                </ul>
+            </div>
+
+            <div class="help-category">
+                <i class="fas fa-user-circle"></i>
+                <h2>Account & Payments</h2>
+                <ul>
+                    <li><a href="#">Account Settings</a></li>
+                    <li><a href="#">Payment Methods</a></li>
+                    <li><a href="#">Address Management</a></li>
+                    <li><a href="#">Security Settings</a></li>
+                </ul>
+            </div>
+
+            <div class="help-category">
+                <i class="fas fa-gift"></i>
+                <h2>Promotions & Rewards</h2>
+                <ul>
+                    <li><a href="#">Loyalty Program</a></li>
+                    <li><a href="#">Promo Codes</a></li>
+                    <li><a href="#">Gift Cards</a></li>
+                    <li><a href="#">Special Offers</a></li>
+                </ul>
+            </div>
+
+            <div class="help-category">
+                <i class="fas fa-headset"></i>
+                <h2>Technical Support</h2>
+                <ul>
+                    <li><a href="#">App Issues</a></li>
+                    <li><a href="#">Website Problems</a></li>
+                    <li><a href="#">Payment Errors</a></li>
+                    <li><a href="#">Login Help</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="contact-support">
+            <h2>Still Need Help?</h2>
+            <div class="support-options">
+                <div class="support-option">
+                    <i class="fas fa-comments"></i>
+                    <h3>Live Chat</h3>
+                    <p>Chat with our support team</p>
+                    <button class="support-btn">Start Chat</button>
+                </div>
+                <div class="support-option">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Support</h3>
+                    <p>Get help via email</p>
+                    <button class="support-btn">Send Email</button>
+                </div>
+                <div class="support-option">
+                    <i class="fas fa-phone"></i>
+                    <h3>Phone Support</h3>
+                    <p>Call us directly</p>
+                    <button class="support-btn">Call Now</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="menu1.html">Menu</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="help-center.html">Help Center</a>
+                <a href="faqs.html">FAQs</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+            <div class="footer-section">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 FoodPal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Support Options Functionality
+        document.querySelector('.support-option:nth-child(1) .support-btn').addEventListener('click', function() {
+            // Open live chat window
+            window.open('https://tawk.to/chat/YOUR_TAWK_TO_ID/default', '_blank');
+        });
+
+        document.querySelector('.support-option:nth-child(2) .support-btn').addEventListener('click', function() {
+            // Open email client
+            window.location.href = 'mailto:support@foodpal.com?subject=Support Request';
+        });
+
+        document.querySelector('.support-option:nth-child(3) .support-btn').addEventListener('click', function() {
+            // Open phone dialer
+            window.location.href = 'tel:1-800-FOODPAL';
+        });
+
+        // Search Functionality
+        const searchInput = document.querySelector('.help-search input');
+        const searchButton = document.querySelector('.help-search button');
+
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const helpItems = document.querySelectorAll('.help-category ul li a');
+            
+            helpItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                const listItem = item.parentElement;
+                if (text.includes(searchTerm)) {
+                    listItem.style.display = 'block';
+                } else {
+                    listItem.style.display = 'none';
+                }
+            });
+        }
+
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html> 
