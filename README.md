@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 # platepal
-=======
 B2B platform connecting businesses with local, home-based
 tiffin services and small-scale Indian food vendors.
 Focus on fresh, homemade, and authentic meals, ensuring
