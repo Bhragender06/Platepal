@@ -8,8 +8,8 @@ quality and taste.
 Empowers local food entrepreneurs by providing them with a
 structured platform
 # Team members name-
-Bhragender kumar singh (2401730131)
-Aayush Sharma (2401730128)
-Krish Jaidka (2401730188)
-Rudransh Gutpa (2401730199)
+Bhragender kumar singh (2401730131),
+Aayush Sharma (2401730128),
+Krish Jaidka (2401730188),
+Rudransh Gutpa (2401730199),
 
