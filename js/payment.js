@@ -36,6 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize payment methods
     initializePaymentMethods();
+
+    updateOrderSummary();
 });
 
 // Authentication Functions
@@ -557,4 +559,129 @@ function handleMapError() {
     if (mapContainer) {
         mapContainer.innerHTML = '<div class="map-error">Failed to load Google Maps. Please check your internet connection and try again.</div>';
     }
-} 
+}
+
+// Get cart data from localStorage
+function getCartData() {
+    const cartData = localStorage.getItem('cart');
+    return cartData ? JSON.parse(cartData) : { items: [], total: 0 };
+}
+
+// Update order summary
+function updateOrderSummary() {
+    const cart = getCartData();
+    const summaryItems = document.querySelector('.summary-items');
+    const subtotalElement = document.querySelector('.subtotal .amount');
+    const taxElement = document.querySelector('.tax .amount');
+    const totalElement = document.querySelector('.total .amount');
+    
+    if (!summaryItems || !subtotalElement || !taxElement || !totalElement) {
+        console.error('Required elements not found');
+        return;
+    }
+    
+    // Update items list
+    summaryItems.innerHTML = cart.items.map(item => `
+        <div class="summary-item">
+            <span>${item.name} x ${item.quantity}</span>
+            <span>₹${item.total.toFixed(2)}</span>
+        </div>
+    `).join('');
+    
+    // Calculate totals
+    const subtotal = cart.items.reduce((sum, item) => sum + item.total, 0);
+    const tax = subtotal * 0.05; // 5% tax
+    const deliveryFee = 40;
+    const total = subtotal + tax + deliveryFee;
+    
+    // Update amounts
+    subtotalElement.textContent = `₹${subtotal.toFixed(2)}`;
+    taxElement.textContent = `₹${tax.toFixed(2)}`;
+    totalElement.textContent = `₹${total.toFixed(2)}`;
+}
+
+// Initialize payment page
+document.addEventListener('DOMContentLoaded', function() {
+    // Update order summary when page loads
+    updateOrderSummary();
+    
+    // Handle payment method selection
+    const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
+    const paymentDetails = document.querySelectorAll('.payment-details');
+    
+    paymentMethods.forEach(method => {
+        method.addEventListener('change', function() {
+            // Hide all payment details
+            paymentDetails.forEach(detail => detail.style.display = 'none');
+            
+            // Show selected payment details
+            const selectedMethod = this.value;
+            const selectedDetails = document.getElementById(`${selectedMethod}Details`);
+            if (selectedDetails) {
+                selectedDetails.style.display = 'block';
+            }
+        });
+    });
+    
+    // Handle form submission
+    const paymentForm = document.getElementById('paymentForm');
+    if (paymentForm) {
+        paymentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                pincode: document.getElementById('pincode').value,
+                phone: document.getElementById('phone').value,
+                paymentMethod: document.querySelector('input[name="paymentMethod"]:checked')?.value
+            };
+            
+            // Validate payment method
+            if (!formData.paymentMethod) {
+                alert('Please select a payment method');
+                return;
+            }
+            
+            // Validate payment details based on selected method
+            const selectedMethod = formData.paymentMethod;
+            let isValid = true;
+            
+            if (selectedMethod === 'card') {
+                const cardNumber = document.getElementById('cardNumber').value;
+                const expiry = document.getElementById('expiry').value;
+                const cvv = document.getElementById('cvv').value;
+                
+                if (!cardNumber || !expiry || !cvv) {
+                    alert('Please fill in all card details');
+                    isValid = false;
+                }
+            } else if (selectedMethod === 'upi') {
+                const upiId = document.getElementById('upiId').value;
+                if (!upiId) {
+                    alert('Please enter your UPI ID');
+                    isValid = false;
+                }
+            } else if (selectedMethod === 'netbanking') {
+                const bank = document.getElementById('bank').value;
+                if (!bank) {
+                    alert('Please select your bank');
+                    isValid = false;
+                }
+            }
+            
+            if (!isValid) return;
+            
+            // Process payment (simulated)
+            alert('Order placed successfully! Thank you for your purchase.');
+            
+            // Clear cart
+            localStorage.removeItem('cart');
+            
+            // Redirect to home page
+            window.location.href = '../index.html';
+        });
+    }
+}); 

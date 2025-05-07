@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             this.updateCount();
             this.updateCartDisplay();
+            this.saveToLocalStorage();
             this.showAddedToCartMessage();
         },
         
@@ -99,6 +100,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
         
+        saveToLocalStorage() {
+            localStorage.setItem('cart', JSON.stringify({
+                items: this.items,
+                total: this.total
+            }));
+        },
+        
+        loadFromLocalStorage() {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                const { items, total } = JSON.parse(savedCart);
+                this.items = items;
+                this.total = total;
+                this.updateCount();
+                this.updateCartDisplay();
+            }
+        },
+        
         showAddedToCartMessage() {
             const message = document.createElement('div');
             message.className = 'cart-message';
@@ -115,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.total = 0;
             this.updateCount();
             this.updateCartDisplay();
+            localStorage.removeItem('cart');
         }
     };
 
