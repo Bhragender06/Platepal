@@ -12,6 +12,7 @@ Bhragender kumar singh (2401730131),
 Aayush Sharma (2401730128),
 Krish Jaidka (2401730188),
 Rudransh Gutpa (2401730199),
-#link
-https://www.deepseek.com/en
+#video link
+
+
 
